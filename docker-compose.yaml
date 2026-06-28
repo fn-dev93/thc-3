@@ -1,0 +1,14 @@
+
+services:
+  thc3_pg:
+    image: postgres:latest
+    container_name: postgres_thc3
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/initdb.sql
