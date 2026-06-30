@@ -17,7 +17,7 @@ export class User {
   email!: string;
 
   @Column({ type: 'text' })
-  password!: string;
+  password?: string;
 
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt!: Date;

@@ -3,15 +3,26 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { CORS } from './constants/index';
 import morgan from 'morgan';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
-  const configService = app.get(ConfigService);
-
   app.enableCors(CORS);
   app.use(morgan('dev'));
   app.setGlobalPrefix('api');
+
+  const configService = app.get(ConfigService);
+
+  const config = new DocumentBuilder()
+    .setTitle('Take Home Challenge')
+    .setDescription(
+      'Basic API to simulate notifications with authenticated users.',
+    )
+    .setVersion('1.0')
+    .build();
+
+  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, documentFactory());
 
   await app.listen(configService.get('PORT') ?? 3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
