@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSourceConfig } from './config/data.source';
 import { AuthModule } from './auth/auth.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     TypeOrmModule.forRoot({ ...DataSourceConfig }),
     AuthModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -50,7 +50,7 @@ export class AuthService {
     }
   }
 
-  async login(authDto: AuthDto): Promise<string> {
+  async login(authDto: AuthDto): Promise<{ accessToken: string }> {
     try {
       const user = await this.authRepository.findOne({
         where: { email: authDto.email },
@@ -65,7 +65,7 @@ export class AuthService {
       if (!isPasswordValid) {
         throw new Error('Invalid password');
       }
-      return this.generateToken(user);
+      return { accessToken: this.generateToken(user) };
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;

@@ -1,3 +1,4 @@
 const authRepository = 'AUTH_REPOSITORY';
+const notificationRepository = 'NOTIFICATION_REPOSITORY';
 
-export { authRepository };
+export { authRepository, notificationRepository };

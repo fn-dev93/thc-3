@@ -15,6 +15,17 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Take Home Challenge')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'JWT',
+        description: 'Enter JWT token',
+        in: 'header',
+      },
+      'JWT-auth',
+    )
     .setDescription(
       'Basic API to simulate notifications with authenticated users.',
     )
@@ -22,7 +33,11 @@ async function bootstrap() {
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, documentFactory());
+  SwaggerModule.setup('api', app, documentFactory(), {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  });
 
   await app.listen(configService.get('PORT') ?? 3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
