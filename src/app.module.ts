@@ -10,7 +10,7 @@ import { NotificationModule } from './notification/notification.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.${process.env.NODE_ENV || 'dev'}.env`,
+      envFilePath: ['.env', `.${process.env.NODE_ENV || 'dev'}.env`],
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({ ...DataSourceConfig }),

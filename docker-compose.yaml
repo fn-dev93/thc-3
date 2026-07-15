@@ -1,5 +1,22 @@
 
 services:
+  api:
+    depends_on:
+      - thc3_pg
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: thc3_pg
+      DB_PORT: '5432'
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "${PORT}:5000"
+
   thc3_pg:
     image: postgres:latest
     container_name: postgres_thc3
@@ -10,5 +27,3 @@ services:
       POSTGRES_DB: ${DB_NAME}
     ports:
       - "${DB_PORT}:5432"
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d/initdb.sql

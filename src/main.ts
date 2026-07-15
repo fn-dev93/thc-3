@@ -1,15 +1,24 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { CORS } from './constants/index';
-import morgan from 'morgan';
+import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import morgan from 'morgan';
+import { AppModule } from './app.module';
+import { CORS } from './constants/index';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors(CORS);
   app.use(morgan('dev'));
   app.setGlobalPrefix('api');
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   const configService = app.get(ConfigService);
 

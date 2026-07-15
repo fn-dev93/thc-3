@@ -3,7 +3,7 @@ import * as dotenv from 'dotenv';
 import { join } from 'path';
 import type { DataSourceOptions } from 'typeorm';
 
-const env = `.${process.env.NODE_ENV || 'dev'}.env`;
+const env = ['.env', `.${process.env.NODE_ENV || 'dev'}.env`];
 dotenv.config({ path: env });
 
 const entitiesPath = join(__dirname, '/../**/*.entity{.ts,.js}');
@@ -18,6 +18,7 @@ export const DataSourceConfig: DataSourceOptions = {
   database: process.env.DB_NAME || 'test',
   entities: [entitiesPath],
   migrations: [migrationsPath],
+  synchronize: true,
 };
 
 export const AppDS = new DataSource(DataSourceConfig);

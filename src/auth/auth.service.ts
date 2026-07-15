@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { authRepository } from '../constants';
@@ -29,7 +29,7 @@ export class AuthService {
   async createUser(authDto: AuthDto): Promise<User> {
     const exists = await this.existsEmail(authDto.email);
     if (exists) {
-      throw new Error('Email already exists');
+      throw new BadRequestException('Email already exists');
     }
 
     try {
@@ -56,14 +56,14 @@ export class AuthService {
         where: { email: authDto.email },
       });
       if (!user) {
-        throw new Error('User not found');
+        throw new BadRequestException('User not found');
       }
       const isPasswordValid = await bcrypt.compare(
         authDto.password,
         user.password!,
       );
       if (!isPasswordValid) {
-        throw new Error('Invalid password');
+        throw new BadRequestException('Invalid password');
       }
       return { accessToken: this.generateToken(user) };
     } catch (error) {
