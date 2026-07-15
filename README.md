@@ -2,7 +2,7 @@
 
 ## Badges
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fn-dev93/thc-3/tree/main.svg?style=svg&circle-token=CCIPRJ_FY86qwn5THVp1RPjASQYB7_35af90e9383957ba5c4f7b2c5409820242f28178)](https://dl.circleci.com/status-badge/redirect/gh/fn-dev93/thc-3/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fn-dev93/thc-3/tree/main.svg?style=svg&circle-token=CCIPRJ_FY86qwn5THVp1RPjASQYB7_35af90e9383957ba5c4f7b2c5409820242f28178)](https://dl.circleci.com/status-badge/redirect/gh/fn-dev93/thc-3/tree/main) [![Coverage Status](https://coveralls.io/repos/github/fn-dev93/thc-3/badge.svg)](https://coveralls.io/github/fn-dev93/thc-3)
 
 ## Features
 
