@@ -31,7 +31,7 @@ jobs:
           name: Run coverage
           command: npm run test:cov
       - coveralls/upload:
-          path: coverage/lcov.info
+          coverage_file: coverage/lcov.info
 
 workflows:
   build_test_deploy:
