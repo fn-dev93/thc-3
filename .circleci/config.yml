@@ -21,8 +21,22 @@ jobs:
           root: ~/project
           paths:
             - .
+  coveralls:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Run coverage
+          command: npm run test:cov
+      - coveralls/upload:
+          path: coverage/lcov.info
 
 workflows:
   build_test_deploy:
     jobs:
       - build_and_test
+      - coveralls:
+          requires:
+            - build_and_test
